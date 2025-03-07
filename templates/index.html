@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Russian Roulette Multiplayer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-title">
+            <h1 class="animate__animated animate__pulse animate__infinite"><i class="fas fa-skull"></i> RUSSIAN ROULETTE <i class="fas fa-skull"></i></h1>
+            <p class="subtitle">Multiplayer Edition</p>
+            <p>Game By: FahrizalHW</p>
+        </div>
+        
+        <div id="setup" class="setup-screen">
+            <div class="revolver-image">
+                <img src="{{ url_for('static', filename='icon.png') }}" alt="Revolver" class="revolver">
+
+            </div>
+            
+            <div class="player-setup">
+                <h2>Player Setup</h2>
+                <p>Masukkan nama pemain (pisahkan dengan koma):</p>
+                <div class="input-container">
+                    <input type="text" id="player-names" placeholder="Contoh: Daffa, Habel, Jonathan    ">
+                    <div class="players-count">Jumlah Pemain: <span id="count">0</span></div>
+                </div>
+                
+                <div class="difficulty">
+                    <h3>Tingkat Kesulitan:</h3>
+                    <div class="difficulty-options">
+                        <button class="difficulty-btn selected" data-bullets="1">Mudah (1 Peluru)</button>
+                        <button class="difficulty-btn" data-bullets="2">Sedang (2 Peluru)</button>
+                        <button class="difficulty-btn" data-bullets="3">Sulit (3 Peluru)</button>
+                    </div>
+                </div>
+                
+                <button id="start-btn" class="pulse-btn">
+                    <i class="fas fa-play"></i> MULAI PERMAINAN
+                </button>
+            </div>
+        </div>
+
+        <div id="game" class="game-screen" style="display: none;">
+            <div class="game-status">
+                <div class="cylinder">
+                    <div class="cylinder-chamber" id="chamber-1"></div>
+                    <div class="cylinder-chamber" id="chamber-2"></div>
+                    <div class="cylinder-chamber" id="chamber-3"></div>
+                    <div class="cylinder-chamber" id="chamber-4"></div>
+                    <div class="cylinder-chamber" id="chamber-5"></div>
+                    <div class="cylinder-chamber" id="chamber-6"></div>
+                </div>
+                
+                <div class="players-display">
+                    <h2>Pemain</h2>
+                    <div id="players-list" class="players-list"></div>
+                </div>
+            </div>
+            
+            <div class="current-turn">
+                <div class="player-turn">
+                    <div class="avatar" id="current-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="turn-info">
+                        <p>Giliran:</p>
+                        <h2 id="current-player" class="animate__animated animate__headShake"></h2>
+                    </div>
+                </div>
+                
+                <div id="message" class="message-box">Tekan "Tarik Pelatuk" untuk bermain!</div>
+                
+                <div class="action-buttons">
+                    <button id="spin-btn" class="game-btn">
+                        <i class="fas fa-sync-alt"></i> Putar Silinder
+                    </button>
+                    <button id="shoot-btn" class="game-btn danger-btn">
+                        <i class="fas fa-bullseye"></i> Tarik Pelatuk
+                    </button>
+                </div>
+            </div>
+            
+            <div id="game-over" class="game-over" style="display: none;">
+                <h2 id="result-message"></h2>
+                <div id="winner-display" style="display: none;">
+                    <div class="winner-avatar">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 id="winner-name"></h3>
+                </div>
+                <button id="restart-btn" class="pulse-btn">
+                    <i class="fas fa-redo"></i> MAIN LAGI
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" style="display: none;">
+        <div id="animation-container" class="animation-container"></div>
+    </div>
+
+    <!-- Sound effects -->
+    <audio id="gunshot" src="{{ url_for('static', filename='gunshot.mp3') }}"></audio>
+    <audio id="empty-click" src="{{ url_for('static', filename='empty_click.mp3') }}"></audio>
+    <audio id="cylinder-spin" src="{{ url_for('static', filename='cylinder_spin.mp3') }}"></audio>
+    <audio id="game-start" src="{{ url_for('static', filename='game_start.mp3') }}"></audio>
+    <audio id="player-died" src="{{ url_for('static', filename='player_died.mp3') }}"></audio>
+    <audio id="game-win" src="{{ url_for('static', filename='game_win.mp3') }}"></audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
